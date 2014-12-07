@@ -1,6 +1,6 @@
-==================
-django-geoposition
-==================
+=====================
+django-geopositionmap
+=====================
 
 A model field that can hold a geoposition (latitude/longitude), and corresponding admin/form widget.
 
@@ -8,16 +8,15 @@ A model field that can hold a geoposition (latitude/longitude), and correspondin
 Prerequisites
 -------------
 
-django-geoposition requires Django 1.4.10 or greater.
+django-geopositionmap requires Django 1.4.10 or greater.
 
 
 Installation
 ------------
 
-- Use your favorite Python packaging tool to install ``geoposition``
-  from `PyPI`_, e.g.::
+- Download and install ``geopositionmap`` by Python setup tools::
 
-    pip install django-geoposition
+    python setup.py install
 
 - Add ``"geoposition"`` to your ``INSTALLED_APPS`` setting::
 
@@ -33,7 +32,7 @@ Installation
 Usage
 -----
 
-``django-geoposition`` comes with a model field that makes it pretty
+``django-geopositionmap`` comes with a model field that makes it pretty
 easy to add a geoposition field to one of your models. To make use of
 it:
 
