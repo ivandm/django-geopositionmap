@@ -18,11 +18,11 @@ Installation
 
     python setup.py install
 
-- Add ``"geoposition"`` to your ``INSTALLED_APPS`` setting::
+- Add ``"geopositionmap"`` to your ``INSTALLED_APPS`` setting::
 
     INSTALLED_APPS = (
         # …
-        "geoposition",
+        "geopositionmap",
     )
 
 - If you are still using Django <1.3, you are advised to install
