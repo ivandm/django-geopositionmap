@@ -14,9 +14,10 @@ django-geopositionmap requires Django 1.4.10 or greater.
 Installation
 ------------
 
-- Download and install ``geopositionmap`` by Python setup tools::
+- Use your favorite Python packaging tool to install ``geopositionmap``
+  from `PyPI`_, e.g.::
 
-    python setup.py install
+    pip install django-geopositionmap
 
 - Add ``"geopositionmap"`` to your ``INSTALLED_APPS`` setting::
 
