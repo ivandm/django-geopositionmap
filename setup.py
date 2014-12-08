@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='django-geoposition-map',
+    name='django-geopositionmap',
     version=__import__('geopositionmap').__version__,
     description='Django model field that can hold a geoposition with bound method, and corresponding admin widget.',
     author='Ivan Del Mastro',
