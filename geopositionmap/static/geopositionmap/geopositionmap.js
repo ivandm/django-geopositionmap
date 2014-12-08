@@ -162,6 +162,13 @@ if (jQuery != undefined) {
                 marker.setPosition(center);
                 doGeocode();
             });
+            
+            google.maps.event.addListener(map, 'click', function(evt) {
+                var center = evt.latLng;
+                map.setCenter(evt.latLng);
+                marker.setPosition(center);
+                google.maps.event.trigger(marker, 'dragend');
+          });
         });
     });
 })(django.jQuery);
