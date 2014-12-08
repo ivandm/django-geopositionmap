@@ -10,10 +10,10 @@ setup(
     packages=find_packages(),
     zip_safe=False,
     package_data={
-        'geoposition': [
+        'geopositionmap': [
             #'locale/*/LC_MESSAGES/*',
-            'templates/geoposition/widgets/*.html',
-            'static/geoposition/*',
+            'templates/geopositionmap/widgets/*.html',
+            'static/geopositionmap/*',
         ],
     },
     classifiers=[
