@@ -102,9 +102,37 @@ into a boud area (NE,SW).
 - This enables the following simple API::
 
     >>> from myapp.models import POI
-    >>> POI.objects.bound('42,13','40,10')
+    >>> POI.objects.bound('42,13','40,10') #retrive POIs into bound rectangle, if are active
     [<POI: POI object>]
+    >>> POI.objects.bound() #retrive all active POIs
+    []
 
+    
+- Active on map method
+
+    from django.db import models
+    from geopositionmap.geoFields import LatLngField
+    from geopositionmap.geoManager import geoManager
+    
+    objects = geoManager()
+
+    class POI(models.Model):
+        name = models.CharField(max_length=100)
+        position = LatLngField()
+        
+        def active_OnMap(self):
+            return False
+        
+        def is_bounded(self):
+            return self.position
+            
+- Use active_OnMap method enables the following simple API::
+
+    >>> from myapp.models import POI
+    >>> POI.objects.bound('42,13','40,10')
+    []
+    >>> POI.objects.bound()
+    []
     
     
 Regular Forms

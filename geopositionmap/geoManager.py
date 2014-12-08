@@ -45,14 +45,19 @@ class geoQuerySet(models.QuerySet):
         result = self.all()
         filter_id = []
         for item in result:
-            if hasattr(item, 'activeOnMap'):
-                if item.activeOnMap() == True:
+            if hasattr(item, 'active_OnMap'):
+                if item.active_OnMap() == True:
                     filter_id.append(item.id)
+            else:
+                filter_id.append(item.id)
         #r = result.filter(pk__in=filter_id)
         r = self.filter(pk__in=filter_id)
         return r
         
     def bound( self, ne='0,0', sw='0,0' ):
+        result = self.active_on_map()
+        if ne == None and sw == None:
+            return result
         # filtra tutti i punti all'interno del bound NE,SW
         # 'ne' e 'sw' sono coordinate in formato stringa: es. '12.34,48.63'
         # ritorna un oggetto QuerySet
@@ -61,7 +66,8 @@ class geoQuerySet(models.QuerySet):
         
         # quanto sara' veloce???
         #result = self.all()
-        result = self.filter()
+        #result = self.filter()
+        
         filter_id = []
         for item in result:
             if hasattr(item, 'is_bounded'): # cerca il metodo 'di_bounded' nel modello in models
@@ -78,5 +84,5 @@ class geoManager(models.Manager):
     def active_on_map(self):
         return self.get_queryset().active_on_map()
 
-    def bound( self, ne='0,0', sw='0,0' ):
+    def bound( self, ne=None, sw=None ):
         return self.get_queryset().bound(ne=ne, sw=sw)
