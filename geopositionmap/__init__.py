@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
 
-from decimal import Decimal
-
-VERSION = (0, 0, 3)
+VERSION = (0, 0, 4)
 __version__ = '.'.join(map(str, VERSION))
 
 
@@ -46,8 +44,8 @@ class LatLng(object):
         # LatLng(lat = -45.9876, lng = 179.12345)
         #
         
-        self._defaultLat = 0.0
-        self._defaultLng = 0.0
+        self._defaultLat = float(0.0)
+        self._defaultLng = float(0.0)
         
         self._lat, self._lng = self._defaultLat, self._defaultLng
         
@@ -68,15 +66,16 @@ class LatLng(object):
     # se args e kwargs sono nulli, resetta i valori predefiniti
     def _isPositionValue(self, *args, **kwargs):
         # filtra i valori nulli non utilizzabili nella lista args
-        args = filter(None, args) 
-        
+
+        #args = filter(None, args) # ???
+
         # Nessuna valore passato
         if len(kwargs.keys()) == 0 and len(args) == 0:
             return True
         
         # Verifica che args sia di uno o due valori:
         # un solo argomento: istanza di LatLng oppure una stringa
-        if len(args) == 1 : 
+        if len(args) == 1 :
             # Controllo che il valore passato sia un oggetto LatLng
             if isInstanceLatLng(args[0]): 
                 args = args[0].pos
@@ -91,7 +90,9 @@ class LatLng(object):
             
             # ora utilizziamo le regular expressions 
             # per estrapolare i dati dalla stringa
+
             args = self._match_re(args)
+
             if len(args) == 2:
                 for n in range(len(args)):
                     try:
