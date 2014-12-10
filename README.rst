@@ -166,7 +166,7 @@ into a boud area (NE,SW).
         position = LatLngField()
         
         def active_OnMap(self):
-            return False
+            return False #return 'True' to active is_bounded method
         
         def is_bounded(self):
             return self.position
