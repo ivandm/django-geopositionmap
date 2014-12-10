@@ -33,8 +33,8 @@ class LatLngFormField(forms.MultiValueField):
     def __init__(self, *args, **kwargs):
         #self.widget = geoWidgets.LatLngTextInputWidget()
         fields = (
-            forms.FloatField(label=_('latitude'),max_value=90.0, min_value=-90.0),
-            forms.FloatField(label=_('longitude'),max_value=180.0, min_value=-180.0),
+            forms.DecimalField(label=_('latitude'),max_value=90.0, min_value=-90.0),
+            forms.DecimalField(label=_('longitude'),max_value=180.0, min_value=-180.0),
         )
         if 'initial' in kwargs:
             kwargs['initial'] = LatLng(*kwargs['initial']).pos

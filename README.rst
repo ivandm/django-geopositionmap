@@ -57,6 +57,50 @@ it:
     >>> poi.position.lng
     13.41156
 
+- Some methods:
+
+    >>> pos = LatLng(10.0, 11.0)
+    >>> pos
+    LatLng(+010.0000000000000000,+011.0000000000000000)
+    >>> pos = LatLng('10','11')
+    >>> pos
+    LatLng(+010.0000000000000000,+011.0000000000000000)
+    >>> pos.lat
+    10.0
+    >>> pos.lng
+    11.0
+    >>> print pos
+    +010.0000000000000000,+011.0000000000000000
+    >>> type(pos)
+    <class 'geopositionmap.LatLng'>
+    >>> pos.to_string()
+    u'+010.0000000000000000,+011.0000000000000000'
+    >>> type(pos.to_string())
+    <type 'unicode'>
+    >>> pos.pos
+    (10.0, 11.0)
+    >>> type (pos.pos)
+    <type 'tuple'>
+    >>> pos.lat = 14
+    >>> pos.lng = -12
+    >>> pos
+    LatLng(+014.0000000000000000,-012.0000000000000000)
+    >>>
+    >>> pos.setPos(41,46)
+    LatLng(+041.0000000000000000,+046.0000000000000000)
+    >>> pos.setPos('41.15 46.56')
+    LatLng(+041.1500000000000000,+046.5600000000000000)
+    >>> 
+    >>> ne = LatLng('-13.0','-11.0')
+    >>> pos = LatLng('-14.0','-12.3')
+    >>> sw = LatLng('-14.0','-13.0')
+    >>> pos.isBounded(ne,sw)
+    -014.0000000000000000,-012.3000000000000000
+    >>> pos = LatLng('-14.0','12.3')
+    >>> print pos.isBounded(ne,sw)
+    False
+
+    
 
 Form field and widget
 ---------------------
