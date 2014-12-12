@@ -1,11 +1,14 @@
 from __future__ import unicode_literals
 from decimal import Decimal
+from ctypes import addressof
+
 VERSION = (0, 0, 6)
 __version__ = '.'.join(map(str, VERSION))
 
 
 import re
 from errors import *
+from django.contrib.gis import geos
 
 def isInstanceLatLng(obj):
     if isinstance(obj, LatLng):
@@ -48,6 +51,7 @@ class LatLng(object):
         self._defaultLng = Decimal(0.0)
         
         self._lat, self._lng = self._defaultLat, self._defaultLng
+        self._geosPoint = Point((self._lng, self._lat))
         
         if not self._isPositionValue(*args, **kwargs):
             raise InvalidCoordinateType()
@@ -150,6 +154,7 @@ class LatLng(object):
         # imposta i valori _lat e _lng della classe
         self._lat = args[0]
         self._lng = args[1]
+        self._geosPoint = Point((self._lng, self._lat))
         return True 
         
     # converte un valore stringa in oggetto LatLng e ritorna l'istanza
@@ -205,6 +210,11 @@ class LatLng(object):
     def pos(self):
         return self._lat, self._lng
     
+    @property
+    def geosPoint(self):
+        return self._geosPoint
+    
+    
     # ritorna l'istanza dopo aver settato i nuovi valori
     def setPos(self, *args, **kwargs):
         # args accetta una coppia di valori lat, lng numerici
@@ -223,12 +233,12 @@ class LatLng(object):
     def to_string(self):
         stringFormat = "{:+0"+str(self.decimal+5)+"."+str(self.decimal)+"f},{:+0"+str(self.decimal+5)+"."+str(self.decimal)+"f}"
         return stringFormat.format(self._lat, self._lng)
-        
+       
     def __str__(self):
         return self.to_string()
         
     def __repr__(self):
-        return "LatLng(%s)" % str(self)
+        return "%s(%s, %s)" % (self.__class__.__name__, self._lat, self._lng)
 
     def __eq__(self, other):
         return isinstance(other, LatLng) and self._lat == other._lat and self._lng == other._lng

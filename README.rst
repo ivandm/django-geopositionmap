@@ -3,12 +3,14 @@ django-geopositionmap
 =====================
 
 A model field that can hold a geoposition (latitude/longitude), and corresponding admin/form widget.
+Porting to GeoDjango Point type.
 
 
 Prerequisites
 -------------
 
 django-geopositionmap requires Django 1.4.10 or greater.
+GeoDjango gis contrib geospatial framework.
 
 
 Installation
@@ -60,11 +62,15 @@ it:
 - Some methods:
 
     >>> pos = LatLng(10.0, 11.0)
+    >>> pos.geosPoint
+    <Point object at 0x4175910L>
+    >>> type(pos.geosPoint)
+    <class 'django.contrib.gis.geos.point.Point'>
     >>> pos
-    LatLng(+010.0000000000000000,+011.0000000000000000)
+    LatLng(10.0,11.0)
     >>> pos = LatLng('10','11')
     >>> pos
-    LatLng(+010.0000000000000000,+011.0000000000000000)
+    LatLng(10.0,11.0)
     >>> pos.lat
     10.0
     >>> pos.lng
@@ -84,20 +90,19 @@ it:
     >>> pos.lat = 14
     >>> pos.lng = -12
     >>> pos
-    LatLng(+014.0000000000000000,-012.0000000000000000)
-    >>>
+    LatLng(14.0, -12.0)
     >>> pos.setPos(41,46)
-    LatLng(+041.0000000000000000,+046.0000000000000000)
+    LatLng(41.0, 46.0)
     >>> pos.setPos('41.15 46.56')
-    LatLng(+041.1500000000000000,+046.5600000000000000)
+    LatLng(41.15, 46.56)
     >>> 
     >>> ne = LatLng('-13.0','-11.0')
     >>> pos = LatLng('-14.0','-12.3')
     >>> sw = LatLng('-14.0','-13.0')
     >>> pos.isBounded(ne,sw)
-    -014.0000000000000000,-012.3000000000000000
+    LatLng(-14.0, -12.3)
     >>> pos = LatLng('-14.0','12.3')
-    >>> print pos.isBounded(ne,sw)
+    >>> pos.isBounded(ne,sw)
     False
 
     
