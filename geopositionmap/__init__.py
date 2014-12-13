@@ -1,8 +1,8 @@
 from __future__ import unicode_literals
-from decimal import Decimal
+#from decimal import Decimal
 from ctypes import addressof
 
-VERSION = (0, 0, 6)
+VERSION = (0, 0, 7)
 __version__ = '.'.join(map(str, VERSION))
 
 
@@ -39,7 +39,7 @@ class LatLng(object):
         # kwargs deve avere 'lat' e 'lng' come chiavi oppure niente
         # lat compreso tra -90 e +90
         # lng compreso tra -180 e +180
-        # lat e lng devono essere numeri Decimal
+        # lat e lng devono essere numeri float
         #
         # examples:
         # LatLng("-45.9876, 179.12345")
@@ -47,25 +47,24 @@ class LatLng(object):
         # LatLng(lat = -45.9876, lng = 179.12345)
         #
         
-        self._defaultLat = Decimal(0.0)
-        self._defaultLng = Decimal(0.0)
+        self._defaultLat = float(0.0)
+        self._defaultLng = float(0.0)
         
         self._lat, self._lng = self._defaultLat, self._defaultLng
-        self._geosPoint = Point((self._lng, self._lat))
+        self._geosPoint = geos.Point((self._lng, self._lat))
         
         if not self._isPositionValue(*args, **kwargs):
             raise InvalidCoordinateType()
     
-    # ogni argomento in value diventa una lista di valori Decimal
+    # ogni argomento in value diventa una lista di valori float
     # ritorna una lista vuota se non trova valori
     def _match_re(self, value):
-        
         # trasforma tutto in stringa se di diverso tipo
         if type(value) != type('') or type(value) != type(u''):
             value = unicode(value) # ogni 'tipo' di dato viene convertito in stringa
         p=re.compile(r"[-+]?\d*\.\d+|\d+", re.IGNORECASE) # cerca valori numerici decimali positivi e negativi
         #p1=re.compile(r"[-+]?(\d+(\.\d*)?|\.\d+)([eE][-+]?\d+)?", re.IGNORECASE) # cerca valori numerici decimali positivi e negativi
-        return [Decimal(x) for x in p.findall(value)][:2]
+        return [float(x) for x in p.findall(value)][:2]
         
     # controlla i valori inseriti se sono compatibili
     # e setta i nuovi valori nelle variabili _lat e _lng
@@ -102,7 +101,7 @@ class LatLng(object):
             if len(args) == 2:
                 for n in range(len(args)):
                     try:
-                        args[n] = Decimal(args[n]) # errore se il valore non e' convertibile in Decimal
+                        args[n] = float(args[n]) # errore se il valore non e' convertibile in float
                     except ValueError:
                         exc_type, exc_value, exc_traceback = sys.exc_info()
                         raise FloatError(exc_value)
@@ -130,10 +129,10 @@ class LatLng(object):
                     raise IncompatibleCoordinateType()
 
         # ulteriore controllo sul tipo di valore
-        # errore se i valori non sono convertibili in Decimal
-        #args = [ Decimal(args[0]) , Decimal(args[1]) ]
+        # errore se i valori non sono convertibili in float
+        #args = [ float(args[0]) , float(args[1]) ]
         try:
-            args = [ Decimal(args[0]) , Decimal(args[1]) ]
+            args = [ float(args[0]) , float(args[1]) ]
         except ValueError:
             exc_type, exc_value, exc_traceback = sys.exc_info()
             raise FloatError(exc_value)
@@ -154,7 +153,7 @@ class LatLng(object):
         # imposta i valori _lat e _lng della classe
         self._lat = args[0]
         self._lng = args[1]
-        self._geosPoint = Point((self._lng, self._lat))
+        self._geosPoint = geos.Point((self._lng, self._lat))
         return True 
         
     # converte un valore stringa in oggetto LatLng e ritorna l'istanza
@@ -194,7 +193,7 @@ class LatLng(object):
     
     @lat.setter
     def lat(self, v):
-        v = Decimal(v)
+        v = float(v)
         self.setPos(v, self._lng)
         
     @property
@@ -203,7 +202,7 @@ class LatLng(object):
         
     @lng.setter
     def lng(self, v):
-        v = Decimal(v)
+        v = float(v)
         self.setPos(self._lat, v)
     
     @property
