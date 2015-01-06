@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='django-geopositionmap',
     version=__import__('geopositionmap').__version__,
-    description='Django model field that can hold a geoposition with bound method, gis Point type, and corresponding admin widget.',
+    description='Django Geoposition, google and osm map. Model field that can hold a geoposition with bound method, gis Point type, and corresponding admin widget.',
     author='Ivan Del Mastro',
     author_email='info@adventure2italy.com',
     url='http://github.com/ivandm/django-geopositionmap',
@@ -17,7 +17,7 @@ setup(
         ],
     },
     classifiers=[
-      'Development Status :: 4 - Beta',
+      'Development Status :: 5 - Production/Stable',
       'Environment :: Web Environment',
       'Intended Audience :: Developers',
       'License :: OSI Approved :: BSD License',
