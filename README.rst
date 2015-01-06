@@ -4,6 +4,7 @@ django-geopositionmap
 
 A model field that can hold a geoposition (latitude/longitude), and corresponding admin/form widget.
 Porting to GeoDjango Point type.
+Google map and OSM map widgets.
 
 
 Prerequisites
@@ -98,7 +99,7 @@ it:
     >>> 
     >>> ne = LatLng('-13.0','-11.0')
     >>> pos = LatLng('-14.0','-12.3')
-    >>> sw = LatLng('-14.0','-13.0')
+    >>> sw = LatLng('-15.0','-13.0')
     >>> pos.isBounded(ne,sw)
     LatLng(-14.0, -12.3)
     >>> pos = LatLng('-14.0','12.3')
@@ -208,20 +209,25 @@ Settings
 --------
 
 You can customize the `MapOptions`_ and `MarkerOptions`_ used to initialize the
-map and marker in JavaScript by defining ``GEOPOSITION_MAP_OPTIONS`` or
-``GEOPOSITION_MARKER_OPTIONS`` in your ``settings.py``.
+map and marker in JavaScript by defining ``GEOPOSITIONMAP_MAP_OPTIONS`` or
+``GEOPOSITIONMAP_MARKER_OPTIONS`` in your ``settings.py``.
+Set True GEOPOSITIONMAP_GOOGLE_VIEW.GOOGLE_VIEW and GEOPOSITIONMAP_OSM_VIEW.OSM_VIEW to view
+Google maps or view OSM maps.
 
 **Example**::
 
-    GEOPOSITION_MAP_OPTIONS = {
+    GEOPOSITIONMAP_MAP_OPTIONS = {
         'minZoom': 3,
         'maxZoom': 15,
     }
 
-    GEOPOSITION_MARKER_OPTIONS = {
+    GEOPOSITIONMAP_MARKER_OPTIONS = {
         'cursor': 'move'
     }
 
+    GEOPOSITIONMAP_GOOGLE_VIEW = False # default is True
+    GEOPOSITIONMAP_OSM_VIEW    = False # default is True
+    
 Please note that you cannot use a value like ``new google.maps.LatLng(52.5,13.4)``
 for a setting like ``center`` or ``position`` because that would end up as a
 string in the JavaScript code and not be evaluated. Please use

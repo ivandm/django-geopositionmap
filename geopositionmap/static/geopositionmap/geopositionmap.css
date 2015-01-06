@@ -2,10 +2,29 @@
     overflow: hidden;
 }
 
+.geoposition-clear{clear: both;}
+
+.googleMapTab, .osmMapTab{width: 50px; float: left; text-align: center; cursor:pointer}
+
+.googleMapTab:hover,.osmMapTab:hover{background: #999}
+
+
+.geoposition-activeMap{display: block !important;}
+
 .geoposition-map {
     position: relative;
+    top: 0px;
+    left: 0px;
     margin: 6px 0;
-    clear: both;
+    display: none;
+}
+
+.geoposition-osm-map{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    margin: 6px 0;
+    display: none;
 }
 
 .geoposition-widget table {

@@ -1,8 +1,6 @@
 from __future__ import unicode_literals
-#from decimal import Decimal
-from ctypes import addressof
 
-VERSION = (0, 0, 7)
+VERSION = (1, 0, 0)
 __version__ = '.'.join(map(str, VERSION))
 
 
@@ -106,7 +104,7 @@ class LatLng(object):
                         exc_type, exc_value, exc_traceback = sys.exc_info()
                         raise FloatError(exc_value)
             else:
-                raise IncompatibleCoordinateType()
+                raise IncompatibleCoordinateType(type(args))
 
         elif len(args) == 2:
             args = self._match_re(args)
@@ -126,7 +124,7 @@ class LatLng(object):
                 if LatLng == 2:
                     args = [ LatLng[0], LatLng[1] ]
                 else:
-                    raise IncompatibleCoordinateType()
+                    raise IncompatibleCoordinateType(type(LatLng))
 
         # ulteriore controllo sul tipo di valore
         # errore se i valori non sono convertibili in float
@@ -217,7 +215,7 @@ class LatLng(object):
     # ritorna l'istanza dopo aver settato i nuovi valori
     def setPos(self, *args, **kwargs):
         # args accetta una coppia di valori lat, lng numerici
-        # oppure una stringa del tipo "10.00,11.00"
+        #              oppure una stringa del tipo "10.00,11.00"
         # kwargs accetta un dizionario {'lat': xxx , 'lng': xxx}
         if not self._isPositionValue( *args, **kwargs ):
             raise InvalidCoordinateType()

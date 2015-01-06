@@ -51,9 +51,11 @@ class LatLngTextInputWidget(forms.MultiWidget):
                 'label': _("longitude"),
             },
             'config': {
-                'map_widget_height': settings.GEOPOSITION_MAP_WIDGET_HEIGHT,
-                'map_options': json.dumps(settings.GEOPOSITION_MAP_OPTIONS),
-                'marker_options': json.dumps(settings.GEOPOSITION_MARKER_OPTIONS),
+                'map_widget_height': settings.GEOPOSITIONMAP_MAP_WIDGET_HEIGHT,
+                'map_options': json.dumps(settings.GEOPOSITIONMAP_MAP_OPTIONS),
+                'marker_options': json.dumps(settings.GEOPOSITIONMAP_MARKER_OPTIONS),
+                'google_view': json.dumps(settings.GEOPOSITIONMAP_GOOGLE_VIEW),
+                'osm_view': json.dumps(settings.GEOPOSITIONMAP_OSM_VIEW),
             }
         })
         
@@ -62,9 +64,11 @@ class LatLngTextInputWidget(forms.MultiWidget):
         css = {
             'all': (
                     'geopositionmap/geopositionmap.css',
+                    '//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css',
                     )
         }
         js = (
-            '//maps.google.com/maps/api/js?sensor=false', 
+            '//maps.google.com/maps/api/js?sensor=false',
+            '//cdn.leafletjs.com/leaflet-0.7.3/leaflet.js',
             'geopositionmap/geopositionmap.js',
             )

@@ -21,9 +21,9 @@ class InvalidCoordinateType(LatLngError):
         self.value = "%s"%_("Values are not coordiates type.")
          
 class IncompatibleCoordinateType(LatLngError):
-    def __init__(self):
+    def __init__(self, val=None):
         super(IncompatibleCoordinateType, self)
-        self.value = "%s"%_("Values aren't coordinate compatible format. String must is '-xxx.dddddddd,-xxx.dddddddd' (lat,lng)")
+        self.value = "Cur Type:%s (%s)"%(val, _("Values aren't coordinate compatible format. String must is '-xxx.dddddddd,-xxx.dddddddd' (lat,lng)") )
 
 class StringTypeError(LatLngError):
     def __init__(self, msg):

@@ -57,6 +57,8 @@ class LatLngField(with_metaclass(models.SubfieldBase, models.Field)):
         # se non e' un oggetto LatLng istanzia un nuovo oggetto LatLng
         # il tipo di valore in 'value' sara' gestito direttamente dall'oggetto LatLng
         p = LatLng()
+        if not value:
+            value = [0,0]
         p.setPos(value)
         return p
     
